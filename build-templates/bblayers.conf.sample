@@ -1,0 +1,17 @@
+# Reference for poky/build/conf/bblayers.conf. Paths are relative to your
+# build directory — adjust to match your actual checkout layout. The key
+# addition versus your existing course bblayers.conf is the last line,
+# pointing at this repo's meta-data-logger layer.
+
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /home/<you>/yocto/poky/meta \
+  /home/<you>/yocto/poky/meta-poky \
+  /home/<you>/yocto/poky/meta-yocto-bsp \
+  /home/<you>/yocto/poky/meta-raspberrypi \
+  /home/<you>/yocto/yocto-data-logger-platform/meta-data-logger \
+  "

@@ -1,0 +1,16 @@
+# Append these lines to poky/build/conf/local.conf (or replace the
+# equivalent existing lines) after running `source oe-init-build-env`.
+# Don't overwrite the whole file — local.conf has other settings you likely
+# already need from earlier course assignments.
+
+MACHINE = "raspberrypi4-64"
+
+# Keep sstate/downloads shared across all your Yocto build directories so
+# you don't redownload/rebuild everything per project. Adjust the path to
+# wherever you already keep these from prior assignments.
+# SSTATE_DIR = "/home/<you>/yocto/sstate-cache"
+# DL_DIR = "/home/<you>/yocto/downloads"
+
+# Only needed if your image should boot with a serial console enabled for
+# debugging over UART in addition to the USB telemetry interface.
+ENABLE_UART = "1"
