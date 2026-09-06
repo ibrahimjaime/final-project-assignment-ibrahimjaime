@@ -3,21 +3,39 @@ DESCRIPTION = "USB telemetry ingestion daemon for the Raspberry Pi 4: reads \
 attitude/speed/position JSON over USB via termios, buffers in RAM, and \
 persists to SQLite in batched transactions, with an IPC-driven \
 start/stop/restart state machine."
-HOMEPAGE = "https://github.com/ibrahimjaime/final-project-assignment-apps-ibrahimjaime"
+HOMEPAGE = "https://github.com/<your-username>/final-project-assignment-apps"
 
 # CLOSED avoids requiring LIC_FILES_CHKSUM. If the app repo carries its own
 # LICENSE file (e.g. MIT), switch this to the matching SPDX identifier and
 # add LIC_FILES_CHKSUM pointing at that file's checksum instead.
 LICENSE = "CLOSED"
 
-# --- Fetch: point this at your actual app repo and pin a real commit for
-# reproducible builds once Sprint 1 stabilizes. AUTOREV is convenient
-# during active development but means every clean build re-fetches HEAD. ---
-SRC_URI = "git://github.com/ibrahimjaime/final-project-assignment-apps-ibrahimjaime.git;protocol=https;branch=master"
-SRCREV = "${AUTOREV}"
+# --- Default: fetch from the app repo (the reproducible, "anyone can build
+# this" path). `?=` makes this a weak default so it can still be overridden
+# entirely if ever needed, though the normal way to develop against a local
+# working copy is EXTERNALSRC below, not overriding SRC_URI directly. Pin
+# SRCREV to a real commit once Sprint 1 stabilizes instead of AUTOREV. ---
+SRC_URI ?= "git://github.com/<your-username>/final-project-assignment-apps.git;protocol=https;branch=main"
+SRCREV ?= "${AUTOREV}"
 
 PV = "1.0+git${SRCPV}"
 S = "${WORKDIR}/git"
+
+# --- Local development option: compile directly from your own working
+# copy of the app repo instead of fetching from git. This is deliberately
+# NOT configured here, since it requires a machine-specific absolute path
+# that must never be committed to this layer. Instead, set it in your own
+# poky/build/conf/local.conf (a generated, machine-local file that is not
+# part of this repo's git history):
+#
+#     INHERIT += "externalsrc"
+#     EXTERNALSRC:pn-data-logger = "/absolute/path/to/final-project-assignment-apps"
+#
+# With that override in place, do_fetch/do_unpack/do_patch are skipped
+# entirely and do_compile runs directly against your working tree — so
+# local edits are picked up on the next `bitbake data-logger` without a
+# commit/push/re-fetch cycle. Remove those two lines (or comment them out)
+# to go back to building from the git-fetched SRC_URI above. ---
 
 inherit update-rc.d
 
@@ -29,6 +47,8 @@ do_compile() {
     # environment (see its `CC ?= gcc` pattern); oe_runmake exports the
     # cross-toolchain bitbake selected for this MACHINE automatically, so
     # no Yocto-specific changes are needed in the app repo's Makefile.
+    # Works identically whether S came from the git fetch above or from
+    # an EXTERNALSRC override.
     oe_runmake
 }
 
