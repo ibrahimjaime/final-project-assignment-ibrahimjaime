@@ -3,7 +3,7 @@ DESCRIPTION = "USB telemetry ingestion daemon for the Raspberry Pi 4: reads \
 attitude/speed/position JSON over USB via termios, buffers in RAM, and \
 persists to SQLite in batched transactions, with an IPC-driven \
 start/stop/restart state machine."
-HOMEPAGE = "https://github.com/<your-username>/final-project-assignment-apps"
+HOMEPAGE = "https://github.com/ibrahimjaime/final-project-assignment-apps-ibrahimjaime"
 
 # CLOSED avoids requiring LIC_FILES_CHKSUM. If the app repo carries its own
 # LICENSE file (e.g. MIT), switch this to the matching SPDX identifier and
@@ -15,11 +15,12 @@ LICENSE = "CLOSED"
 # entirely if ever needed, though the normal way to develop against a local
 # working copy is EXTERNALSRC below, not overriding SRC_URI directly. Pin
 # SRCREV to a real commit once Sprint 1 stabilizes instead of AUTOREV. ---
-SRC_URI ?= "git://github.com/<your-username>/final-project-assignment-apps.git;protocol=https;branch=main"
-SRCREV ?= "${AUTOREV}"
+# SRC_URI ?= "git://github.com/ibrahimjaime/final-project-assignment-apps-ibrahimjaime.git;protocol=https;branch=master"
 
-PV = "1.0+git${SRCPV}"
-S = "${WORKDIR}/git"
+# PV = "1.0"
+# S = "${WORKDIR}/git"
+
+# SRCREV ?= "a1f5d5caf0b1b44441c49cafa505a06a712bd1cf"
 
 # --- Local development option: compile directly from your own working
 # copy of the app repo instead of fetching from git. This is deliberately
@@ -28,8 +29,9 @@ S = "${WORKDIR}/git"
 # poky/build/conf/local.conf (a generated, machine-local file that is not
 # part of this repo's git history):
 #
-#     INHERIT += "externalsrc"
-#     EXTERNALSRC:pn-data-logger = "/absolute/path/to/final-project-assignment-apps"
+INHERIT += "externalsrc"
+EXTERNALSRC:pn-data-logger = "/home/ibrahim/Documents/course/final-project-assignment-apps"
+EXTERNALSRC_BUILD:pn-data-logger = "/home/ibrahim/Documents/course/final-project-assignment-apps"
 #
 # With that override in place, do_fetch/do_unpack/do_patch are skipped
 # entirely and do_compile runs directly against your working tree — so

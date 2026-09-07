@@ -179,3 +179,44 @@ SRCREV = "<full commit hash from final-project-assignment-apps-ibrahimjaime>"
 
 so a clean `./clean.sh --full && ./build.sh` always rebuilds the exact
 same app version rather than whatever the branch currently points to.
+
+### Flash the Yocto Image to an SD Card
+
+1. Identify the SD card device:
+
+   ```bash
+   lsblk
+   ```
+
+2. Unmount its partitions (replace `/dev/sdbX` with the partitions shown by `lsblk`):
+
+   ```bash
+   sudo umount /dev/sdb1
+   sudo umount /dev/sdb2
+   ```
+
+3. Navigate to the directory containing the generated image:
+
+   ```bash
+   cd ~/Documents/course/final-project-assignment-yocto/poky/build/tmp/deploy/images/raspberrypi4-64/
+   ```
+
+4. Flash the image to the SD card. **Use the device (`/dev/sdb`), not a partition (`/dev/sdb1`):**
+
+   ```bash
+   sudo bzcat core-image-data-logger-raspberrypi4-64.wic.bz2 | sudo dd of=/dev/sdb bs=4M status=progress conv=fsync
+   ```
+
+5. Flush pending writes:
+
+   ```bash
+   sync
+   ```
+
+6. Verify the resulting partitions:
+
+   ```bash
+   lsblk -f /dev/sdb
+   ```
+
+> **Warning:** Make sure `/dev/sdb` is the SD card before running `dd`, as it will overwrite the entire device.

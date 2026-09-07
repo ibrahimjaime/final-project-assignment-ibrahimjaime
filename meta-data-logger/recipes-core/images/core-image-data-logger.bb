@@ -2,7 +2,7 @@ SUMMARY = "Minimal Raspberry Pi 4 image with the data-logger daemon preinstalled
 LICENSE = "MIT"
 
 inherit core-image
-
+IMAGE_FEATURES += "ssh-server-dropbear"
 # Adds data-logger (and its init script, via the recipe's FILES) to whatever
 # core-image-minimal already includes. Build with:
 #   bitbake core-image-data-logger
