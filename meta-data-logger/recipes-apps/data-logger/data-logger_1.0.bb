@@ -10,6 +10,7 @@ HOMEPAGE = "https://github.com/ibrahimjaime/final-project-assignment-apps-ibrahi
 # add LIC_FILES_CHKSUM pointing at that file's checksum instead.
 LICENSE = "CLOSED"
 
+DEPENDS += "libserialport"
 # --- Default: fetch from the app repo (the reproducible, "anyone can build
 # this" path). `?=` makes this a weak default so it can still be overridden
 # entirely if ever needed, though the normal way to develop against a local
