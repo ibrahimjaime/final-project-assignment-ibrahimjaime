@@ -180,7 +180,40 @@ SRCREV = "<full commit hash from final-project-assignment-apps-ibrahimjaime>"
 so a clean `./clean.sh --full && ./build.sh` always rebuilds the exact
 same app version rather than whatever the branch currently points to.
 
-### Flash the Yocto Image to an SD Card
+## Build and Copy Only the App to the Raspberry Pi
+
+1. Remove the previous binary:
+
+   ```bash
+   ./clean.sh --app
+   ```
+
+2. Build the app:
+
+   ```bash
+   cd poky/
+   bitbake data-logger
+   ```
+
+3. Stop the execution of the app on the raspberry:
+
+   ```bash
+   ssh root@<pi-id>
+   /etc/init.d/data-logger stop
+   ```
+
+4. Copy the binary to the raspberry:
+
+   ```bash
+   scp data-logger root@<pi-id>:/usr/bin/data-logger
+   ```
+5. Start the app:
+
+   ```bash
+   /etc/init.d/data-logger start
+   ```
+
+## Flash the Yocto Image to an SD Card
 
 1. Identify the SD card device:
 
