@@ -202,7 +202,7 @@ same app version rather than whatever the branch currently points to.
    /etc/init.d/data-logger stop
    ```
 
-4. Copy the binary to the raspberry:
+4. Copy the binary from the apps repo to the raspberry:
 
    ```bash
    scp data-logger root@<pi-id>:/usr/bin/data-logger
