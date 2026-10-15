@@ -61,6 +61,11 @@ do_install() {
 
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${S}/scripts/data-logger-start-stop.sh ${D}${sysconfdir}/init.d/data-logger
+
+    install -d ${D}${datadir}/telemetry
+    install -m 0644 ${S}/db/schema.sql ${D}${datadir}/telemetry/schema.sql
+    install -m 0755 ${S}/scripts/validate-schema.sh ${D}${datadir}/telemetry/validate-schema.sh
 }
 
 FILES:${PN} += "${sysconfdir}/init.d/data-logger"
+FILES:${PN} += "${datadir}/telemetry"

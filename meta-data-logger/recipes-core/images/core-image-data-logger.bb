@@ -9,4 +9,4 @@ IMAGE_FEATURES += "ssh-server-dropbear"
 # This is optional — during active Sprint 1 development it's often faster
 # to `bitbake data-logger` alone and deploy just the binary/package rather
 # than rebuilding a full image each time.
-IMAGE_INSTALL:append = " data-logger"
+IMAGE_INSTALL:append = " data-logger  sqlite3"
