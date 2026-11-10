@@ -11,6 +11,7 @@ HOMEPAGE = "https://github.com/ibrahimjaime/final-project-assignment-apps-ibrahi
 LICENSE = "CLOSED"
 
 DEPENDS += "libserialport"
+DEPENDS += "sqlite3"
 # --- Default: fetch from the app repo (the reproducible, "anyone can build
 # this" path). `?=` makes this a weak default so it can still be overridden
 # entirely if ever needed, though the normal way to develop against a local
@@ -65,7 +66,10 @@ do_install() {
     install -d ${D}${datadir}/telemetry
     install -m 0644 ${S}/db/schema.sql ${D}${datadir}/telemetry/schema.sql
     install -m 0755 ${S}/scripts/validate-schema.sh ${D}${datadir}/telemetry/validate-schema.sh
+
+    install -d ${D}${localstatedir}/lib/telemetry
 }
 
 FILES:${PN} += "${sysconfdir}/init.d/data-logger"
 FILES:${PN} += "${datadir}/telemetry"
+FILES:${PN} += "${localstatedir}/lib/telemetry"
